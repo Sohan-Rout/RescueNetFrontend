@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 export default {
   expo: {
-    name: "client",
+    name: "Rescue Net",
     slug: "client",
     version: "1.0.0",
     orientation: "portrait",

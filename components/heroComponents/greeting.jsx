@@ -13,7 +13,7 @@ const Greeting = () => {
   }
   return (
     <View className="px-6 py-4">
-      <Text className="text-2xl font-semibold">{greeting}</Text>
+      <Text className="text-3xl font-medium">{greeting}</Text>
     </View>
   );
 };

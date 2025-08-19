@@ -50,39 +50,41 @@ const Navbar = () => {
   }, []);
 
   return (
-    <SafeAreaView className="flex flex-row items-center justify-between bg-black shadow h-16 px-4">
-      <View className="relative">
-        <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)} className="p-2">
-          <Text className="text-xl text-white font-bold">
-            <Menu color="white"/>
+    <View>
+      <SafeAreaView className="flex flex-row items-center justify-between bg-black shadow h-16 px-4">
+        <View>
+          <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)} className="p-2">
+            <Text className="text-xl text-white font-bold">
+              <Menu color="white"/>
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View className="flex-row items-center">
+          <Text className="text-white text-lg mr-2">
+            {weather.temp !== null ? `${weather.temp}°C` : '...'}
           </Text>
-        </TouchableOpacity>
-        {menuVisible && (
-          <View className="flex flex-col space-y-2 absolute top-16 left-0 bg-white shadow w-40 px-4 py-2 rounded z-10">
-            <TouchableOpacity className="w-full items-center py-2 bg-black rounded">
-              <Text className="text-white font-semibold">Login / Signup</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="w-full items-center py-2">
-              <Text className="text-black">Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="w-full items-center py-2">
-              <Text className="text-black">Customer Care</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="w-full items-center py-2">
-              <Text className="text-black">FAQ</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-      <View className="flex-row items-center">
-        <Text className="text-white text-lg mr-2">
-          {weather.temp !== null ? `${weather.temp}°C` : '...'}
-        </Text>
-        {weather.type && (
-          getWeatherIcon(weather.type)
-        )}
-      </View>
-    </SafeAreaView>
+          {weather.type && (
+            getWeatherIcon(weather.type)
+          )}
+        </View>
+      </SafeAreaView>
+      {menuVisible && (
+        <View className="absolute top-16 left-0 flex flex-col space-y-2 bg-white shadow w-40 px-4 py-2 rounded z-10">
+          <TouchableOpacity className="w-full items-center py-2 bg-black rounded">
+            <Text className="text-white font-semibold">Login / Signup</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="w-full items-center py-2">
+            <Text className="text-black">Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="w-full items-center py-2">
+            <Text className="text-black">Customer Care</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="w-full items-center py-2">
+            <Text className="text-black">FAQ</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
   );
 };
 
