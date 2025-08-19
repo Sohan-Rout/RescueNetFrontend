@@ -1,4 +1,5 @@
 import "./global.css";
+import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/navbar";
 import Hero from "./components/hero";
 import { StatusBar } from "expo-status-bar";
@@ -21,12 +22,14 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <Navbar />
-      <Hero />
-      <View>
-        <StatusBar style="auto" />
-      </View>
-    </SafeAreaView>
+    <AuthProvider>
+      <SafeAreaView className="flex-1 bg-white">
+        <Navbar />
+        <Hero />
+        <View>
+          <StatusBar style="auto" />
+        </View>
+      </SafeAreaView>
+    </AuthProvider>
   );
 }

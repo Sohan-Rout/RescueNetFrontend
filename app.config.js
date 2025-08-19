@@ -1,8 +1,9 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 export default {
   expo: {
-    name: "Rescue Net",
+    scheme: "shayak",
+    name: "Sahayak",
     slug: "client",
     version: "1.0.0",
     orientation: "portrait",
@@ -12,24 +13,28 @@ export default {
     splash: {
       image: "./assets/splash-icon.png",
       resizeMode: "contain",
-      backgroundColor: "#ffffff"
+      backgroundColor: "#ffffff",
     },
     ios: {
-      supportsTablet: true
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
       },
-      edgeToEdgeEnabled: true
+      edgeToEdgeEnabled: true,
     },
     web: {
       favicon: "./assets/favicon.png",
-      bundler: "metro"
+      bundler: "metro",
     },
     extra: {
-      EXPO_PUBLIC_OPENWEATHER_API_KEY: process.env.EXPO_PUBLIC_OPENWEATHER_API_KEY
-    }
-  }
-}
+      EXPO_PUBLIC_OPENWEATHER_API_KEY:
+        process.env.EXPO_PUBLIC_OPENWEATHER_API_KEY,
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    },
+    plugins: ["expo-web-browser"],
+  },
+};

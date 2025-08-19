@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import AuthModal from './AuthModal';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
@@ -8,6 +9,7 @@ import {Menu} from "lucide-react-native";
 const Navbar = () => {
   const [weather, setWeather] = useState({ temp: null, type: null, icon: null });
   const [menuVisible, setMenuVisible] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
 
   const getWeatherIcon = (type) => {
   switch (type) {
@@ -70,7 +72,10 @@ const Navbar = () => {
       </SafeAreaView>
       {menuVisible && (
         <View className="absolute top-16 left-0 flex flex-col space-y-2 bg-white shadow w-40 px-4 py-2 rounded z-10">
-          <TouchableOpacity className="w-full items-center py-2 bg-black rounded">
+          <TouchableOpacity
+            className="w-full items-center py-2 bg-black rounded"
+            onPress={() => setAuthOpen(true)}
+          >
             <Text className="text-white font-semibold">Login / Signup</Text>
           </TouchableOpacity>
           <TouchableOpacity className="w-full items-center py-2">
@@ -84,6 +89,7 @@ const Navbar = () => {
           </TouchableOpacity>
         </View>
       )}
+      <AuthModal visible={authOpen} onClose={() => setAuthOpen(false)} />
     </View>
   );
 };
