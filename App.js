@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./global.css";
 import Navbar from "./components/navbar";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
