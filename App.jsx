@@ -11,6 +11,9 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import { useEffect } from "react";
+import * as Linking from "expo-linking";
+import { supabase } from "./lib/supabaseClient";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,6 +21,24 @@ export default function App() {
     Poppins_500Medium,
     Poppins_700Bold,
   });
+
+  useEffect(() => {
+    const handleDeepLink = ({ url }) => {
+      supabase.auth.exchangeCodeForSession(url);
+    };
+
+    const subscription = Linking.addEventListener("url", handleDeepLink);
+
+    Linking.getInitialURL().then((url) => {
+      if (url) {
+        supabase.auth.exchangeCodeForSession(url);
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   if (!fontsLoaded) return null;
 

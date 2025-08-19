@@ -3,10 +3,15 @@ import { View, Text, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { supabase } from '../lib/supabaseClient';
 
 export default function AuthModal({ visible, onClose }) {
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleAuth = async () => {
+    if (!displayName.trim()) {
+      console.warn('Display Name is required');
+      return;
+    }
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -22,6 +27,10 @@ export default function AuthModal({ visible, onClose }) {
       const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: { displayName },
+          emailRedirectTo: "sahayak://auth/callback",
+        },
       });
       if (signUpError) {
         console.warn('Sign up error:', signUpError.message);
@@ -41,6 +50,14 @@ export default function AuthModal({ visible, onClose }) {
           <Text className="text-white text-lg font-bold mb-4">
             Login / Signup
           </Text>
+
+          <TextInput
+            placeholder="Display Name"
+            placeholderTextColor="#ccc"
+            value={displayName}
+            onChangeText={setDisplayName}
+            className="bg-neutral-800 text-white p-3 rounded-xl mb-3"
+          />
 
           <TextInput
             placeholder="Email"

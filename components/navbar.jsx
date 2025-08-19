@@ -5,11 +5,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
 import { Sun, Cloud, CloudRain, Snowflake, CloudLightning } from "lucide-react-native";
 import {Menu} from "lucide-react-native";
+import { supabase } from '../lib/supabaseClient';
 
 const Navbar = () => {
   const [weather, setWeather] = useState({ temp: null, type: null, icon: null });
   const [menuVisible, setMenuVisible] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const getWeatherIcon = (type) => {
   switch (type) {
@@ -49,6 +51,27 @@ const Navbar = () => {
     };
 
     fetchWeather();
+
+    const getSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        setUser(data.session.user);
+      }
+    };
+
+    getSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser(session.user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
   return (
@@ -72,12 +95,24 @@ const Navbar = () => {
       </SafeAreaView>
       {menuVisible && (
         <View className="absolute top-16 left-0 flex flex-col space-y-2 bg-white shadow w-40 px-4 py-2 rounded z-10">
-          <TouchableOpacity
-            className="w-full items-center py-2 bg-black rounded"
-            onPress={() => setAuthOpen(true)}
-          >
-            <Text className="text-white font-semibold">Login / Signup</Text>
-          </TouchableOpacity>
+          {user ? (
+            <TouchableOpacity
+              className="w-full items-center py-2 bg-black rounded"
+              onPress={async () => {
+                await supabase.auth.signOut();
+                setUser(null);
+              }}
+            >
+              <Text className="text-white font-semibold">Logout</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              className="w-full items-center py-2 bg-black rounded"
+              onPress={() => setAuthOpen(true)}
+            >
+              <Text className="text-white font-semibold">Login / Signup</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity className="w-full items-center py-2">
             <Text className="text-black">Home</Text>
           </TouchableOpacity>
