@@ -1,8 +1,9 @@
 import "./global.css";
 import Navbar from "./components/navbar";
+import Hero from "./components/hero";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { useFonts } from "expo-font";
 import {
   Poppins_400Regular,
@@ -22,16 +23,8 @@ export default function App() {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <Navbar />
-      <View className="flex-1 items-center justify-center">
-        <Text className="font-poppins text-xl text-blue-600">
-          Regular Poppins
-        </Text>
-        <Text className="font-poppins-medium text-xl text-green-600">
-          Medium Poppins
-        </Text>
-        <Text className="font-poppins-bold text-xl text-red-600">
-          Bold Poppins
-        </Text>
+      <Hero />
+      <View>
         <StatusBar style="auto" />
       </View>
     </SafeAreaView>
