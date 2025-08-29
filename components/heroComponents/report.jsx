@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Modal, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { MapPin } from "lucide-react-native";
 
 const Report = ({ visible, onClose }) => {
   const [location, setLocation] = useState('');
   const handleFetchLocation = () => {
-    // Placeholder for fetching location logic
     setLocation("Fetched current location");
   };
   const [disasterType, setDisasterType] = useState('');
@@ -18,7 +17,6 @@ const Report = ({ visible, onClose }) => {
   };
 
   const handleSubmit = () => {
-    // Placeholder for submit logic
     onClose();
     setLocation('');
     setDisasterType('');
