@@ -81,7 +81,7 @@ export default function AuthModal({ visible, onClose }) {
 
           <TouchableOpacity
             onPress={handleAuth}
-            className="bg-black py-3 rounded-full mt-5 items-center"
+            className="bg- py-3 rounded-full mt-5 items-center"
           >
             <Text className="font-semibold text-white">Continue</Text>
           </TouchableOpacity>
